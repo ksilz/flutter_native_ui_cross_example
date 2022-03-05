@@ -115,7 +115,7 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
               openMaxWidth: 250,
             ),
             items: widget.items
-                .map(
+                .map<NavigationPaneItem>(
                   (anItem) => PaneItem(
                     icon: Icon(anItem.icon),
                     title: Text(anItem.label),
