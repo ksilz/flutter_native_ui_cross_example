@@ -17,6 +17,7 @@ dependencies:
   macos_ui: 0.10.0+1
   fluent_ui: 3.9.1
   font_awesome_flutter: 9.2.0
+  window_manager: 0.1.9
 
 dev_dependencies:
   flutter_test:
