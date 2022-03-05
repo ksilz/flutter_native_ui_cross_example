@@ -1,7 +1,6 @@
-import 'package:fluent_ui/fluent_ui.dart';
+import 'package:fluent_ui/fluent_ui.dart' hide Colors;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:window_manager/window_manager.dart';
@@ -143,7 +142,41 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
             ),
           ),
           body: _calculateScreenWidget(),
-          bottomNavigationBar: BottomNavigationBar(
+          drawer: Container(
+            color: Colors.white,
+            width: 250,
+            child: Stack(
+              children: [
+                Column(
+                  children: [
+                    for (int index = 0; index < widget.items.length; index++)
+                      GestureDetector(
+                        onTap: () => _updateIndex(index),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              const SizedBox(width: 16),
+                              Icon(widget.items[index].icon),
+                              const SizedBox(width: 12),
+                              Text(
+                                widget.items[index].label,
+                                style: TextStyle(
+                                  fontSize: Theme.of(context).textTheme.headline6?.fontSize,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                  ],
+                )
+              ],
+            ),
+          ),
+
+          /*BottomNavigationBar(
             currentIndex: _selectedIndex,
             onTap: (index) => _updateIndex(index),
             items: widget.items
@@ -154,7 +187,7 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
                   ),
                 )
                 .toList(),
-          ),
+          )*/
         );
         break;
     }
