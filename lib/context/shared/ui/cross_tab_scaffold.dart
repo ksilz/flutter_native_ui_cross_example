@@ -123,6 +123,10 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
                 )
                 .toList(),
           ),
+          content: NavigationBody(
+            index: _selectedIndex,
+            children: widget.items.map((anItem) => anItem.screen).toList(),
+          ),
         );
         break;
 
