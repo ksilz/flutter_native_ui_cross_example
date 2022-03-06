@@ -1,4 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart' hide Colors;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -7,6 +8,7 @@ import 'package:window_manager/window_manager.dart';
 
 import '../domain/s_enums.dart';
 import '../service/s_device.dart';
+import '../service/s_display.dart';
 import 'cross_nav_bar_item.dart';
 
 class CrossTabScaffold extends StatefulWidget {
@@ -156,18 +158,6 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
                 .toList(),
           ),
           minWidth: 200,
-/*
-          bottom: GestureDetector(
-            onTap: () => widget.settingsPage.,
-            child: Padding(
-              padding: EdgeInsets.all(16.0),
-              child: MacosListTile(
-                leading: MacosIcon(widget.settingsPage.icon),
-                title: Text(widget.settingsPage.label),
-              ),
-            ),
-          ),
-*/
         ),
         child: MacosScaffold(
           children: [
@@ -188,6 +178,7 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
       );
 
   Widget _buildMobileWidget() => PlatformScaffold(
+    backgroundColor: SDisplay.instance.contentAreaBackgroundColor,
         appBar: PlatformAppBar(
           title: Text(
             _calculateScreenTitle(),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import 'cross_content_area.dart';
 import 'cross_heading.dart';
 
 class CrossComingSoon extends StatelessWidget {
@@ -11,9 +12,7 @@ class CrossComingSoon extends StatelessWidget {
         super(key: key);
 
   @override
-  Widget build(BuildContext context) => Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
+  Widget build(BuildContext context) => CrossContentArea(
         children: [
           CrossHeading(
             label: 'Coming soon: $label'.toUpperCase(),

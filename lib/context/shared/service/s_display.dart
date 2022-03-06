@@ -12,6 +12,11 @@ class SDisplay {
 
   SDisplay._privateConstructor() {}
 
+  Color get contentAreaBackgroundColor {
+    final platform = SDevice.instance.currentPlatform;
+    return platform == SPlatform.ios ? const Color.fromARGB(255, 243, 243, 243) : Colors.white;
+  }
+
   showAlertDialog({required BuildContext context, required String title, required String message}) {
     final platform = SDevice.instance.currentPlatform;
 

@@ -20,7 +20,7 @@ class InfoPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CrossButton(
-                label: 'Launch talk page in browser',
+                label: 'View Talk Page',
                 onAction: () => SDevice.instance.launchWebSite(context, 'https://bpf.li/hum'),
               ),
             ],
