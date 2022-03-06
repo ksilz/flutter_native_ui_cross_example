@@ -72,7 +72,9 @@ class CrossButton extends StatelessWidget {
     return feedback;
   }
 
-  Widget _buildMobileWidget(BuildContext context, Color fillColor, Color textColor) => PlatformElevatedButton(
+  Widget _buildMobileWidget(
+          BuildContext context, Color fillColor, Color textColor) =>
+      PlatformElevatedButton(
         onPressed: onAction,
         child: PlatformText(
           label,
@@ -87,7 +89,9 @@ class CrossButton extends StatelessWidget {
         ),
       );
 
-  Widget _buildMacWidget(BuildContext context, Color fillColor, Color textColor) => PushButton(
+  Widget _buildMacWidget(
+          BuildContext context, Color fillColor, Color textColor) =>
+      PushButton(
         color: fillColor,
         child: Text(
           label,
@@ -100,7 +104,12 @@ class CrossButton extends StatelessWidget {
         buttonSize: ButtonSize.large,
       );
 
-  Widget _buildWindowsWidget(BuildContext context, Color fillColor, Color textColor) => fluent.FilledButton(
+  Widget _buildWindowsWidget(
+          BuildContext context, Color fillColor, Color textColor) =>
+      fluent.FilledButton(
+        style: fluent.ButtonStyle(
+          backgroundColor: fluent.ButtonState.all<Color>(fillColor),
+        ),
         child: Text(
           label,
           style: const TextStyle(
@@ -110,7 +119,9 @@ class CrossButton extends StatelessWidget {
         onPressed: onAction,
       );
 
-  Widget _buildWebWidget(BuildContext context, Color fillColor, Color textColor) => ElevatedButton(
+  Widget _buildWebWidget(
+          BuildContext context, Color fillColor, Color textColor) =>
+      ElevatedButton(
         child: Text(
           label,
           style: TextStyle(

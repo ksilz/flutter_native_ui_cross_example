@@ -142,7 +142,12 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
               .map<NavigationPaneItem>(
                 (anItem) => PaneItem(
                   icon: Icon(anItem.icon),
-                  title: Text(anItem.label),
+                  title: Text(
+                    anItem.label,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               )
               .toList(),
@@ -163,7 +168,10 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
                 .map(
                   (anItem) => SidebarItem(
                     leading: MacosIcon(anItem.icon),
-                    label: Text(anItem.label),
+                    label: Text(anItem.label,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),),
                   ),
                 )
                 .toList(),
