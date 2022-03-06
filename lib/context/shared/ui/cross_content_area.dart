@@ -57,7 +57,7 @@ class CrossContentArea extends StatelessWidget {
 
   Widget _buildIosWidget() => SafeArea(
         maintainBottomViewPadding: true,
-    child: SingleChildScrollView(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
           child: Container(
             padding: const EdgeInsets.all(16),

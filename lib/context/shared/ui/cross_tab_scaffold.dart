@@ -41,7 +41,7 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
     switch (platform) {
       case SPlatform.android:
       case SPlatform.ios:
-      feedback = _buildMobileWidget(platform);
+        feedback = _buildMobileWidget(platform);
         break;
 
       case SPlatform.mac:
