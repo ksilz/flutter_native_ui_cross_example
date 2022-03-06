@@ -10,10 +10,11 @@ import '../service/s_device.dart';
 import 'cross_nav_bar_item.dart';
 
 class CrossTabScaffold extends StatefulWidget {
-  final List<CrossNavBarItem> items;
+  final List<CrossNavBarItem> pages;
+  final CrossNavBarItem settingsPage;
 
-  const CrossTabScaffold({Key? key, required this.items})
-      : assert(items.length > 0),
+  const CrossTabScaffold({Key? key, required this.pages, required this.settingsPage})
+      : assert(pages.length > 0),
         super(key: key);
 
   @override
@@ -21,7 +22,14 @@ class CrossTabScaffold extends StatefulWidget {
 }
 
 class _CrossTabScaffoldState extends State<CrossTabScaffold> {
+  late final List<CrossNavBarItem> _allPages;
   var _selectedIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _allPages = [...widget.pages, widget.settingsPage];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,116 +59,8 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
     return feedback;
   }
 
-  Scaffold _buildWebWidget(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          _calculateScreenTitle(),
-          style: TextStyle(
-            fontSize: Theme.of(context).textTheme.headline5?.fontSize,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-      body: _calculateScreenWidget(),
-      drawer: Container(
-        color: Colors.white,
-        width: 250,
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                for (int index = 0; index < widget.items.length; index++)
-                  GestureDetector(
-                    onTap: () => _updateIndex(index),
-                    child: Container(
-                      color: index == _selectedIndex ? Colors.blue : null,
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          const SizedBox(width: 16),
-                          Icon(widget.items[index].icon),
-                          const SizedBox(width: 12),
-                          Text(
-                            widget.items[index].label,
-                            style: TextStyle(
-                              fontSize: Theme.of(context).textTheme.headline6?.fontSize,
-                              fontWeight: FontWeight.bold,
-                              color: index == _selectedIndex ? Colors.white : null,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-              ],
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  NavigationView _buildWindowsWidget() {
-    return NavigationView(
-      appBar: NavigationAppBar(
-        title: () {
-          if (kIsWeb) return Text(_calculateScreenTitle());
-          return DragToMoveArea(
-            child: Align(
-              alignment: AlignmentDirectional.centerStart,
-              child: Text(_calculateScreenTitle()),
-            ),
-          );
-        }(),
-      ),
-      pane: NavigationPane(
-        selected: _selectedIndex,
-        onChanged: (index) => _updateIndex(index),
-        size: const NavigationPaneSize(
-          openMinWidth: 200,
-          openMaxWidth: 250,
-        ),
-        items: widget.items
-            .map<NavigationPaneItem>(
-              (anItem) => PaneItem(
-                icon: Icon(anItem.icon),
-                title: Text(anItem.label),
-              ),
-            )
-            .toList(),
-      ),
-      content: NavigationBody(
-        index: _selectedIndex,
-        children: widget.items.map((anItem) => anItem.screen).toList(),
-      ),
-    );
-  }
-
-  MacosWindow _buildMacOsWidget(BuildContext context) {
-    return MacosWindow(
-      sidebar: Sidebar(
-        builder: (BuildContext context, ScrollController scrollController) => SidebarItems(
-          currentIndex: _selectedIndex,
-          onChanged: (index) => _updateIndex(index),
-          items: widget.items
-              .map(
-                (anItem) => SidebarItem(
-                  leading: MacosIcon(anItem.icon),
-                  label: Text(anItem.label),
-                ),
-              )
-              .toList(),
-        ),
-        minWidth: 200,
-      ),
-      child: MacosScaffold(
-        children: [
-          ContentArea(
-            builder: (BuildContext context, ScrollController scrollController) => _calculateScreenWidget(),
-          )
-        ],
-        titleBar: TitleBar(
+  Scaffold _buildWebWidget(BuildContext context) => Scaffold(
+        appBar: AppBar(
           title: Text(
             _calculateScreenTitle(),
             style: TextStyle(
@@ -169,37 +69,147 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildMobileWidget() {
-    var navBar = PlatformNavBar(
-      currentIndex: _selectedIndex,
-      itemChanged: (index) => _updateIndex(index),
-      items: widget.items.map((anItem) => BottomNavigationBarItem(icon: Icon(anItem.icon), label: anItem.label)).toList(),
-    );
-
-    return PlatformScaffold(
-      appBar: PlatformAppBar(
-        title: Text(
-          _calculateScreenTitle(),
-          style: TextStyle(
-            fontSize: Theme.of(context).textTheme.headline5?.fontSize,
-            fontWeight: FontWeight.bold,
+        body: _calculateScreenWidget(),
+        drawer: Container(
+          color: Colors.white,
+          width: 250,
+          child: Stack(
+            children: [
+              Column(
+                children: [
+                  for (int index = 0; index < _allPages.length; index++)
+                    GestureDetector(
+                      onTap: () => _updateIndex(index),
+                      child: Container(
+                        color: index == _selectedIndex ? Colors.blue : null,
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            const SizedBox(width: 16),
+                            Icon(_allPages[index].icon),
+                            const SizedBox(width: 12),
+                            Text(
+                              _allPages[index].label,
+                              style: TextStyle(
+                                fontSize: Theme.of(context).textTheme.headline6?.fontSize,
+                                fontWeight: FontWeight.bold,
+                                color: index == _selectedIndex ? Colors.white : null,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                ],
+              )
+            ],
           ),
         ),
-      ),
-      body: _calculateScreenWidget(),
-      bottomNavBar: navBar,
-      iosContentPadding: false,
-      iosContentBottomPadding: false,
-    );
-  }
+      );
+
+  NavigationView _buildWindowsWidget() => NavigationView(
+        appBar: NavigationAppBar(
+          title: () {
+            if (kIsWeb) return Text(_calculateScreenTitle());
+            return DragToMoveArea(
+              child: Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: Text(_calculateScreenTitle()),
+              ),
+            );
+          }(),
+        ),
+        pane: NavigationPane(
+          selected: _selectedIndex,
+          onChanged: (index) => _updateIndex(index),
+          size: const NavigationPaneSize(
+            openMinWidth: 200,
+            openMaxWidth: 250,
+          ),
+          items: _allPages
+              .map<NavigationPaneItem>(
+                (anItem) => PaneItem(
+                  icon: Icon(anItem.icon),
+                  title: Text(anItem.label),
+                ),
+              )
+              .toList(),
+        ),
+        content: NavigationBody(
+          index: _selectedIndex,
+          children: _allPages.map((anItem) => anItem.screen).toList(),
+        ),
+      );
+
+  MacosWindow _buildMacOsWidget(BuildContext context) => MacosWindow(
+        sidebar: Sidebar(
+          builder: (BuildContext context, ScrollController scrollController) => SidebarItems(
+            currentIndex: _selectedIndex,
+            onChanged: (index) => _updateIndex(index),
+            items: _allPages
+                .map(
+                  (anItem) => SidebarItem(
+                    leading: MacosIcon(anItem.icon),
+                    label: Text(anItem.label),
+                  ),
+                )
+                .toList(),
+          ),
+          minWidth: 200,
+/*
+          bottom: GestureDetector(
+            onTap: () => widget.settingsPage.,
+            child: Padding(
+              padding: EdgeInsets.all(16.0),
+              child: MacosListTile(
+                leading: MacosIcon(widget.settingsPage.icon),
+                title: Text(widget.settingsPage.label),
+              ),
+            ),
+          ),
+*/
+        ),
+        child: MacosScaffold(
+          children: [
+            ContentArea(
+              builder: (BuildContext context, ScrollController scrollController) => _calculateScreenWidget(),
+            )
+          ],
+          titleBar: TitleBar(
+            title: Text(
+              _calculateScreenTitle(),
+              style: TextStyle(
+                fontSize: Theme.of(context).textTheme.headline5?.fontSize,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+        ),
+      );
+
+  Widget _buildMobileWidget() => PlatformScaffold(
+        appBar: PlatformAppBar(
+          title: Text(
+            _calculateScreenTitle(),
+            style: TextStyle(
+              fontSize: Theme.of(context).textTheme.headline5?.fontSize,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        body: _calculateScreenWidget(),
+        bottomNavBar: PlatformNavBar(
+          currentIndex: _selectedIndex,
+          itemChanged: (index) => _updateIndex(index),
+          items: _allPages.map((anItem) => BottomNavigationBarItem(icon: Icon(anItem.icon), label: anItem.label)).toList(),
+        ),
+        iosContentPadding: false,
+        iosContentBottomPadding: false,
+      );
 
   _updateIndex(int index) => setState(() => _selectedIndex = index);
 
-  Widget _calculateScreenWidget() => widget.items[_selectedIndex].screen;
+  Widget _calculateScreenWidget() => _allPages[_selectedIndex].screen;
 
-  String _calculateScreenTitle() => widget.items[_selectedIndex].label;
+  String _calculateScreenTitle() => _allPages[_selectedIndex].label;
 }
