@@ -9,13 +9,21 @@ import 's_device.dart';
 
 class SDisplay {
   static final SDisplay instance = SDisplay._privateConstructor();
+  static const Color _iosBackgroundGray = Color.fromARGB(255, 243, 243, 243);
+  static const Color _niceBlue = Color(0xFF66A3FF);
 
   SDisplay._privateConstructor() {}
 
   Color get contentAreaBackgroundColor {
     final platform = SDevice.instance.currentPlatform;
-    return platform == SPlatform.ios ? const Color.fromARGB(255, 243, 243, 243) : Colors.white;
+    return platform == SPlatform.ios ? _iosBackgroundGray : Colors.white;
   }
+
+  Color get primaryColor => _niceBlue;
+
+  Color get changeColor => Colors.yellow.shade700;
+
+  Color get cancelColor => Colors.grey;
 
   showAlertDialog({required BuildContext context, required String title, required String message}) {
     final platform = SDevice.instance.currentPlatform;
@@ -85,12 +93,29 @@ class SDisplay {
           content: Text(message),
           actions: [
             fluent.Button(
-              child: const Text('Ok'),
+              child: const Text('OK'),
               onPressed: () => Navigator.pop(context),
             ),
           ],
         ),
       );
 
-  _showWebDialog(fluent.BuildContext context, String title, String message) {}
+  _showWebDialog(fluent.BuildContext context, String title, String message) => showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(title),
+            content: Text(message),
+            actions: [
+              TextButton(
+                child: const Text('OK'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
 }

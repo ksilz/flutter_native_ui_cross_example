@@ -27,23 +27,47 @@ class CrossApp extends StatelessWidget {
     switch (platform) {
       case SPlatform.android:
       case SPlatform.ios:
-        feedback = PlatformApp(title: title, home: home);
+        feedback = _buildMobileWidget();
         break;
 
       case SPlatform.windows:
-        feedback = FluentApp(title: title, home: home);
+        feedback = _buildWindowsWidget();
         break;
 
       case SPlatform.mac:
-        feedback = MacosApp(title: title, home: home);
+        feedback = _buildMacWidget();
         break;
 
       case SPlatform.linux:
       case SPlatform.web:
-        feedback = MaterialApp(title: title, home: home);
+        feedback = _buildWebApp();
         break;
     }
 
     return feedback;
   }
+
+  MaterialApp _buildWebApp() => MaterialApp(
+        title: title,
+        home: home,
+        debugShowCheckedModeBanner: false,
+      );
+
+  MacosApp _buildMacWidget() => MacosApp(
+        title: title,
+        home: home,
+        debugShowCheckedModeBanner: false,
+      );
+
+  FluentApp _buildWindowsWidget() => FluentApp(
+        title: title,
+        home: home,
+        debugShowCheckedModeBanner: false,
+      );
+
+  PlatformApp _buildMobileWidget() => PlatformApp(
+        title: title,
+        home: home,
+        debugShowCheckedModeBanner: false,
+      );
 }

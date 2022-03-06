@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_native_ui_cross_example/context/shared/domain/s_enums.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -24,10 +25,24 @@ class _HomePageState extends State<HomePage> {
       title: 'Flutter Cross App',
       home: CrossTabScaffold(
         pages: [
-          CrossNavBarItem(label: 'Info', icon: PlatformIcons(context).info, screen: const InfoPage()),
-          const CrossNavBarItem(label: 'Demo', icon: FontAwesomeIcons.eye, screen: CrossComingSoon(label: 'Demo screen')),
+          CrossNavBarItem(
+            label: 'Info',
+            icon: PlatformIcons(context).info,
+            screen: const InfoPage(),
+          ),
+          const CrossNavBarItem(
+            label: 'Demo',
+            icon: FontAwesomeIcons.eye,
+            screen: CrossComingSoon(label: 'Demo screen'),
+            leading: SLeadingAction.cancel,
+            trailing: STrailingAction.save,
+          ),
         ],
-        settingsPage: CrossNavBarItem(label: 'Settings', icon: PlatformIcons(context).gearSolid, screen: const CrossComingSoon(label: 'Settings screen')),
+        settingsPage: CrossNavBarItem(
+          label: 'Settings',
+          icon: PlatformIcons(context).gearSolid,
+          screen: const CrossComingSoon(label: 'Settings screen'),
+        ),
       ),
     );
   }

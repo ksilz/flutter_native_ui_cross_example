@@ -44,7 +44,7 @@ class CrossContentArea extends StatelessWidget {
   }
 
   Widget _buildAndroidWidget() => SafeArea(
-        child: Container(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -57,7 +57,7 @@ class CrossContentArea extends StatelessWidget {
 
   Widget _buildIosWidget() => SafeArea(
         maintainBottomViewPadding: true,
-        child: Padding(
+    child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
           child: Container(
             padding: const EdgeInsets.all(16),
@@ -75,8 +75,8 @@ class CrossContentArea extends StatelessWidget {
         ),
       );
 
-  Widget _buildMacOsWidget(BuildContext context) => Container(
-        padding: const EdgeInsets.all(16),
+  Widget _buildMacOsWidget(BuildContext context) => SingleChildScrollView(
+        padding: const EdgeInsets.all(32),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,8 +84,8 @@ class CrossContentArea extends StatelessWidget {
         ),
       );
 
-  Widget _buildWindowsWidget() => Container(
-        padding: const EdgeInsets.all(16),
+  Widget _buildWindowsWidget() => SingleChildScrollView(
+        padding: const EdgeInsets.all(32),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,8 +93,8 @@ class CrossContentArea extends StatelessWidget {
         ),
       );
 
-  Widget _buildWebWidget(BuildContext context) => Container(
-        padding: const EdgeInsets.all(16),
+  Widget _buildWebWidget(BuildContext context) => SingleChildScrollView(
+        padding: const EdgeInsets.all(32),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
