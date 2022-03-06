@@ -1,9 +1,11 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../domain/s_device_event.dart';
 import '../domain/s_enums.dart';
 import 's_display.dart';
 
@@ -12,6 +14,7 @@ class SDevice {
   late SPlatform _currentPlatform;
   late SPlatform _nativePlatform;
   bool _webSitesPossible = false;
+  final _eventStreamController = StreamController<SDeviceEvent>();
 
   SDevice._privateConstructor() {
     _detectCapabilities();
@@ -38,9 +41,20 @@ class SDevice {
     _webSitesPossible = await canLaunch(Uri(scheme: 'https', path: 'google.com').toString());
   }
 
+  bool get webSitesPossible => _webSitesPossible;
+
+  SPlatform get nativePlatform => _nativePlatform;
+
   SPlatform get currentPlatform => _currentPlatform;
 
-  bool get webSitesPossible => _webSitesPossible;
+  set currentPlatform(SPlatform value) => _setCurrentPlatform(value);
+
+  Stream<SDeviceEvent> get deviceEvents => _eventStreamController.stream;
+
+  _setCurrentPlatform(SPlatform value) {
+    _currentPlatform = value;
+    _eventStreamController.add(SDeviceEvent());
+  }
 
   launchWebSite(BuildContext context, String url) async {
     if (webSitesPossible) {

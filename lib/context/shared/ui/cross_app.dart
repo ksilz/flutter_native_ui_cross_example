@@ -1,13 +1,13 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:macos_ui/macos_ui.dart';
 
+import '../domain/s_device_event.dart';
 import '../domain/s_enums.dart';
 import '../service/s_device.dart';
 
-class CrossApp extends StatelessWidget {
+class CrossApp extends StatefulWidget {
   final String title;
   final Widget home;
 
@@ -16,13 +16,31 @@ class CrossApp extends StatelessWidget {
         super(key: key);
 
   @override
+  State<CrossApp> createState() => _CrossAppState();
+}
+
+class _CrossAppState extends State<CrossApp> {
+  late final Stream<SDeviceEvent> _deviceEvents;
+
+  @override
+  void initState() {
+    super.initState();
+    _deviceEvents = SDevice.instance.deviceEvents;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return _buildWidget(context);
   }
 
   Widget _buildWidget(BuildContext context) {
     final platform = SDevice.instance.currentPlatform;
-    var feedback;
+    Widget feedback;
 
     switch (platform) {
       case SPlatform.android:
@@ -47,27 +65,52 @@ class CrossApp extends StatelessWidget {
     return feedback;
   }
 
-  MaterialApp _buildWebApp() => MaterialApp(
-        title: title,
-        home: home,
+  Widget _buildWebApp() => MaterialApp(
+        title: widget.title,
+        home: widget.home,
         debugShowCheckedModeBanner: false,
       );
 
-  MacosApp _buildMacWidget() => MacosApp(
-        title: title,
-        home: home,
+  Widget _buildMacWidget() => MacosApp(
+        title: widget.title,
+        home: widget.home,
         debugShowCheckedModeBanner: false,
       );
 
-  FluentApp _buildWindowsWidget() => FluentApp(
-        title: title,
-        home: home,
+  Widget _buildWindowsWidget() => FluentApp(
+        title: widget.title,
+        home: widget.home,
         debugShowCheckedModeBanner: false,
       );
 
-  PlatformApp _buildMobileWidget() => PlatformApp(
-        title: title,
-        home: home,
-        debugShowCheckedModeBanner: false,
-      );
+  Widget _buildMobileWidget() {
+    return StreamBuilder<SDeviceEvent>(
+      stream: _deviceEvents,
+      builder: (_, __) => _calculateMobileProvider(),
+    );
+  }
+
+  PlatformProvider _calculateMobileProvider() {
+    final currentPlatform = SDevice.instance.currentPlatform;
+
+    return PlatformProvider(
+      settings: PlatformSettingsData(
+        platformStyle: PlatformStyleData(
+          ios: currentPlatform == SPlatform.ios ? PlatformStyle.Cupertino : PlatformStyle.Material,
+          android: currentPlatform == SPlatform.android ? PlatformStyle.Material : PlatformStyle.Cupertino,
+        ),
+      ),
+      builder: (_) => currentPlatform == SPlatform.android
+          ? MaterialApp(
+              title: widget.title,
+              home: widget.home,
+              debugShowCheckedModeBanner: false,
+            )
+          : PlatformApp(
+              title: widget.title,
+              home: widget.home,
+              debugShowCheckedModeBanner: false,
+            ),
+    );
+  }
 }
