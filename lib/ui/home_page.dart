@@ -1,12 +1,12 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_native_ui_cross_example/context/shared/domain/s_enums.dart';
+import 'package:flutter_native_ui_cross_example/shared/domain/s_enums.dart';
+import 'package:flutter_native_ui_cross_example/ui/settings_page.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../context/shared/ui/cross_app.dart';
-import '../context/shared/ui/cross_coming_soon.dart';
-import '../context/shared/ui/cross_nav_bar_item.dart';
-import '../context/shared/ui/cross_tab_scaffold.dart';
+import '../shared/ui/cross_app.dart';
+import '../shared/ui/cross_nav_bar_item.dart';
+import '../shared/ui/cross_tab_scaffold.dart';
 import 'form_page.dart';
 import 'info_page.dart';
 
@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
         settingsPage: CrossNavBarItem(
           label: 'Settings',
           icon: PlatformIcons(context).gearSolid,
-          screen: const CrossComingSoon(label: 'Settings screen'),
+          screen: const SettingsPage(),
         ),
       ),
     );

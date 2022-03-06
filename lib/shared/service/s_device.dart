@@ -5,8 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../shared/domain/s_enums.dart';
 import '../domain/s_device_event.dart';
-import '../domain/s_enums.dart';
 import 's_display.dart';
 
 class SDevice {
@@ -67,4 +67,6 @@ class SDevice {
       SDisplay.instance.showAlertDialog(context: context, title: "Can't launch web site", message: "I can't show web sites on this device. Please open this manually:  $url");
     }
   }
+
+  bool isNativeMobile() => _nativePlatform == SPlatform.ios || _nativePlatform == SPlatform.android;
 }

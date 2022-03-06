@@ -10,7 +10,6 @@ import '../service/s_display.dart';
 class CrossButton extends StatelessWidget {
   final SButtonType type;
   final String label;
-  final IconData? icon;
   final bool small;
   final void Function() onAction;
 
@@ -18,7 +17,6 @@ class CrossButton extends StatelessWidget {
     Key? key,
     this.type = SButtonType.navigation,
     required this.label,
-    this.icon,
     this.small = false,
     required this.onAction,
   })  : assert(label.length > 0),
@@ -72,9 +70,7 @@ class CrossButton extends StatelessWidget {
     return feedback;
   }
 
-  Widget _buildMobileWidget(
-          BuildContext context, Color fillColor, Color textColor) =>
-      PlatformElevatedButton(
+  Widget _buildMobileWidget(BuildContext context, Color fillColor, Color textColor) => PlatformElevatedButton(
         onPressed: onAction,
         child: PlatformText(
           label,
@@ -89,9 +85,7 @@ class CrossButton extends StatelessWidget {
         ),
       );
 
-  Widget _buildMacWidget(
-          BuildContext context, Color fillColor, Color textColor) =>
-      PushButton(
+  Widget _buildMacWidget(BuildContext context, Color fillColor, Color textColor) => PushButton(
         color: fillColor,
         child: Text(
           label,
@@ -104,9 +98,7 @@ class CrossButton extends StatelessWidget {
         buttonSize: ButtonSize.large,
       );
 
-  Widget _buildWindowsWidget(
-          BuildContext context, Color fillColor, Color textColor) =>
-      fluent.FilledButton(
+  Widget _buildWindowsWidget(BuildContext context, Color fillColor, Color textColor) => fluent.FilledButton(
         style: fluent.ButtonStyle(
           backgroundColor: fluent.ButtonState.all<Color>(fillColor),
         ),
@@ -119,9 +111,7 @@ class CrossButton extends StatelessWidget {
         onPressed: onAction,
       );
 
-  Widget _buildWebWidget(
-          BuildContext context, Color fillColor, Color textColor) =>
-      ElevatedButton(
+  Widget _buildWebWidget(BuildContext context, Color fillColor, Color textColor) => ElevatedButton(
         child: Text(
           label,
           style: TextStyle(

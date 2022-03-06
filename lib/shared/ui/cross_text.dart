@@ -14,9 +14,6 @@ class CrossText extends StatelessWidget {
         child: Text(
           label,
           textAlign: TextAlign.start,
-          style: TextStyle(
-            fontSize: Theme.of(context).textTheme.bodyText2?.fontSize,
-          ),
         ),
       );
 }

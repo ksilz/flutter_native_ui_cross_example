@@ -44,7 +44,7 @@ class CrossForm extends StatelessWidget {
       allWidgets.add(buttons);
     }
 
-    return Column(children: allWidgets);
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: allWidgets);
   }
 
   Widget _calculateMacFormButtons(BuildContext context) => Padding(

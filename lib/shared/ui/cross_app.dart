@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:macos_ui/macos_ui.dart';
 
+import '../../../shared/domain/s_enums.dart';
 import '../domain/s_device_event.dart';
-import '../domain/s_enums.dart';
 import '../service/s_device.dart';
 
 class CrossApp extends StatefulWidget {
