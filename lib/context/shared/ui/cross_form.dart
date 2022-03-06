@@ -90,12 +90,12 @@ class CrossForm extends StatelessWidget {
       );
 
   Widget _calculateWindowsFormButtons(BuildContext context) => Padding(
-        padding: const EdgeInsets.only(top: 32, right: 32),
+        padding: const EdgeInsets.only(top: 32, right: 0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Padding(
-              padding: EdgeInsets.only(right: 16),
+              padding: const EdgeInsets.only(right: 16),
               child: CrossButton(
                 onAction: () => _onCancel(context),
                 type: SButtonType.cancel,

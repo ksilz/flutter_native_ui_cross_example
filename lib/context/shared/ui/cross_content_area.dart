@@ -85,6 +85,7 @@ class CrossContentArea extends StatelessWidget {
   Widget _buildWindowsWidget() => SingleChildScrollView(
         padding: const EdgeInsets.all(32),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: children,

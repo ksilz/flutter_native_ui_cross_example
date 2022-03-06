@@ -15,7 +15,8 @@ class CrossTabScaffold extends StatefulWidget {
   final List<CrossNavBarItem> pages;
   final CrossNavBarItem settingsPage;
 
-  const CrossTabScaffold({Key? key, required this.pages, required this.settingsPage})
+  const CrossTabScaffold(
+      {Key? key, required this.pages, required this.settingsPage})
       : assert(pages.length > 0),
         super(key: key);
 
@@ -86,7 +87,9 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
                     GestureDetector(
                       onTap: () => _updateIndex(index),
                       child: Container(
-                        color: index == _selectedIndex ? SDisplay.instance.primaryColor : null,
+                        color: index == _selectedIndex
+                            ? SDisplay.instance.primaryColor
+                            : null,
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           children: [
@@ -96,9 +99,14 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
                             Text(
                               _allPages[index].label,
                               style: TextStyle(
-                                fontSize: Theme.of(context).textTheme.headline6?.fontSize,
+                                fontSize: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    ?.fontSize,
                                 fontWeight: FontWeight.bold,
-                                color: index == _selectedIndex ? Colors.white : null,
+                                color: index == _selectedIndex
+                                    ? Colors.white
+                                    : null,
                               ),
                             ),
                           ],
@@ -117,14 +125,18 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
           backgroundColor: SDisplay.instance.primaryColor,
           title: Text(
             _calculateScreenTitle(),
+            style: TextStyle(
+              fontSize: Theme.of(context).textTheme.headline6?.fontSize,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         pane: NavigationPane(
           selected: _selectedIndex,
           onChanged: (index) => _updateIndex(index),
           size: const NavigationPaneSize(
-            openMinWidth: 200,
-            openMaxWidth: 250,
+            openMinWidth: 120,
+            openMaxWidth: 130,
           ),
           items: _allPages
               .map<NavigationPaneItem>(
@@ -143,7 +155,8 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
 
   Widget _buildMacOsWidget(BuildContext context) => MacosWindow(
         sidebar: Sidebar(
-          builder: (BuildContext context, ScrollController scrollController) => SidebarItems(
+          builder: (BuildContext context, ScrollController scrollController) =>
+              SidebarItems(
             currentIndex: _selectedIndex,
             onChanged: (index) => _updateIndex(index),
             items: _allPages
@@ -210,7 +223,10 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
         bottomNavBar: PlatformNavBar(
           currentIndex: _selectedIndex,
           itemChanged: (index) => _updateIndex(index),
-          items: _allPages.map((anItem) => BottomNavigationBarItem(icon: Icon(anItem.icon), label: anItem.label)).toList(),
+          items: _allPages
+              .map((anItem) => BottomNavigationBarItem(
+                  icon: Icon(anItem.icon), label: anItem.label))
+              .toList(),
         ),
         iosContentPadding: false,
         iosContentBottomPadding: false,
@@ -230,7 +246,8 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
 
   _updateIndex(int index) => setState(() => _selectedIndex = index);
 
-  List<Widget> _calculateScreens() => _allPages.map((aPage) => aPage.screen).toList();
+  List<Widget> _calculateScreens() =>
+      _allPages.map((aPage) => aPage.screen).toList();
 
   Widget _calculateCurrentScreen() {
     final feedback = _screens[_selectedIndex];
@@ -239,7 +256,9 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
 
   String _calculateScreenTitle() => _allPages[_selectedIndex].label;
 
-  SLeadingAction? _calculateLeadingAction() => _allPages[_selectedIndex].leading;
+  SLeadingAction? _calculateLeadingAction() =>
+      _allPages[_selectedIndex].leading;
 
-  STrailingAction? _calculateTrailingAction() => _allPages[_selectedIndex].trailing;
+  STrailingAction? _calculateTrailingAction() =>
+      _allPages[_selectedIndex].trailing;
 }
