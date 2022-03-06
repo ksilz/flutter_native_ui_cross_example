@@ -59,7 +59,7 @@ class CrossButton extends StatelessWidget {
         buttonSize: ButtonSize.large,
       );
 
-  Widget _buildWindowsWidget() => Button(
+  Widget _buildWindowsWidget() => FilledButton(
         child: Text(label),
         onPressed: onAction,
       );
