@@ -53,7 +53,7 @@ class CrossForm extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Padding(
-              padding: EdgeInsets.only(right: 16),
+              padding: const EdgeInsets.only(right: 16),
               child: CrossButton(
                 onAction: () => _onCancel(context),
                 type: SButtonType.cancel,
@@ -74,7 +74,7 @@ class CrossForm extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Padding(
-              padding: EdgeInsets.only(right: 16),
+              padding: const EdgeInsets.only(right: 16),
               child: CrossButton(
                 onAction: () => _onCancel(context),
                 type: SButtonType.cancel,
