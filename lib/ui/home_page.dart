@@ -6,6 +6,7 @@ import '../context/shared/ui/cross_app.dart';
 import '../context/shared/ui/cross_coming_soon.dart';
 import '../context/shared/ui/cross_nav_bar_item.dart';
 import '../context/shared/ui/cross_tab_scaffold.dart';
+import 'info_page.dart';
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -23,7 +24,7 @@ class _HomePageState extends State<HomePage> {
       title: 'Flutter Cross App',
       home: CrossTabScaffold(
         items: [
-          CrossNavBarItem(label: 'Info', icon: PlatformIcons(context).info, screen: const CrossComingSoon(label: 'Info screen')),
+          CrossNavBarItem(label: 'Info', icon: PlatformIcons(context).info, screen: const InfoPage()),
           const CrossNavBarItem(label: 'Demo', icon: FontAwesomeIcons.eye, screen: CrossComingSoon(label: 'Demo screen')),
           CrossNavBarItem(label: 'Settings', icon: PlatformIcons(context).gearSolid, screen: const CrossComingSoon(label: 'Settings screen')),
         ],

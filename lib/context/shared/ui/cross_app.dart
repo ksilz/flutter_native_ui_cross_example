@@ -5,7 +5,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 import '../domain/s_enums.dart';
-import '../service/s_device_service.dart';
+import '../service/s_device.dart';
 
 class CrossApp extends StatelessWidget {
   final String title;
@@ -21,7 +21,7 @@ class CrossApp extends StatelessWidget {
   }
 
   Widget _buildWidget(BuildContext context) {
-    final platform = SDeviceService.instance.currentPlatform;
+    final platform = SDevice.instance.currentPlatform;
     var feedback;
 
     switch (platform) {

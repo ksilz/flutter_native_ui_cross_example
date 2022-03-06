@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import 'cross_heading.dart';
+
 class CrossComingSoon extends StatelessWidget {
   final String label;
 
@@ -9,20 +11,13 @@ class CrossComingSoon extends StatelessWidget {
         super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text(
-          'Coming soon: $label'.toUpperCase(),
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: Theme.of(context).textTheme.headline3?.fontSize,
-            fontWeight: FontWeight.bold,
+  Widget build(BuildContext context) => Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CrossHeading(
+            label: 'Coming soon: $label'.toUpperCase(),
           ),
-        ),
-      ],
-    );
-  }
+        ],
+      );
 }

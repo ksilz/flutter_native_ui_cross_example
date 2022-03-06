@@ -18,6 +18,7 @@ dependencies:
   fluent_ui: 3.9.1
   font_awesome_flutter: 9.2.0
   window_manager: 0.1.9
+  url_launcher: 6.0.20
 
 dev_dependencies:
   flutter_test:
