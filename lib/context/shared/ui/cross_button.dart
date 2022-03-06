@@ -65,7 +65,7 @@ class CrossButton extends StatelessWidget {
 
       case SPlatform.linux:
       case SPlatform.web:
-      feedback = _buildWebWidget(context, fillColor, textColor);
+        feedback = _buildWebWidget(context, fillColor, textColor);
         break;
     }
 

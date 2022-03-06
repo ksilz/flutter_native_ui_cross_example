@@ -246,7 +246,7 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
           ),
           leading: _calculateLeadingAction() == SLeadingAction.cancel
               ? CrossButton(
-            label: platform == SPlatform.android ? 'X' : 'Cancel',
+                  label: platform == SPlatform.android ? 'X' : 'Cancel',
                   small: true,
                   onAction: _onCancel,
                 )
