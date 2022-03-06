@@ -178,7 +178,7 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
       );
 
   Widget _buildMobileWidget() => PlatformScaffold(
-    backgroundColor: SDisplay.instance.contentAreaBackgroundColor,
+        backgroundColor: SDisplay.instance.contentAreaBackgroundColor,
         appBar: PlatformAppBar(
           title: Text(
             _calculateScreenTitle(),
