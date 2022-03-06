@@ -39,8 +39,10 @@ class _CrossSwitchState extends fluent.State<CrossSwitch> {
 
     switch (platform) {
       case SPlatform.android:
+        feedback = _buildAndroidWidget(context);
+        break;
       case SPlatform.ios:
-        feedback = _buildMobileWidget(context);
+        feedback = _buildIosWidget(context);
         break;
 
       case SPlatform.mac:
@@ -60,7 +62,7 @@ class _CrossSwitchState extends fluent.State<CrossSwitch> {
     return feedback;
   }
 
-  Widget _buildMobileWidget(BuildContext context) => Row(
+  Widget _buildAndroidWidget(BuildContext context) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(widget.label),
@@ -69,6 +71,20 @@ class _CrossSwitchState extends fluent.State<CrossSwitch> {
             value: selectedValue,
           ),
         ],
+      );
+
+  Widget _buildIosWidget(BuildContext context) => Padding(
+        padding: const EdgeInsets.only(top: 8),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(widget.label),
+            PlatformSwitch(
+              onChanged: (value) => _updateValue(value),
+              value: selectedValue,
+            ),
+          ],
+        ),
       );
 
   Widget _buildMacWidget() => Padding(
@@ -98,7 +114,7 @@ class _CrossSwitchState extends fluent.State<CrossSwitch> {
                 checked: selectedValue,
               ),
             ),
-                  Text(widget.label),
+            Text(widget.label),
           ],
         ),
       );
