@@ -52,27 +52,27 @@ class CrossButton extends StatelessWidget {
     switch (platform) {
       case SPlatform.android:
       case SPlatform.ios:
-        feedback = _buildMobileWidget(fillColor, textColor);
+        feedback = _buildMobileWidget(context, fillColor, textColor);
         break;
 
       case SPlatform.mac:
-        feedback = _buildMacWidget(fillColor, textColor);
+        feedback = _buildMacWidget(context, fillColor, textColor);
         break;
 
       case SPlatform.windows:
-        feedback = _buildWindowsWidget(fillColor, textColor);
+        feedback = _buildWindowsWidget(context, fillColor, textColor);
         break;
 
       case SPlatform.linux:
       case SPlatform.web:
-        feedback = _buildWebWidget(fillColor, textColor);
+      feedback = _buildWebWidget(context, fillColor, textColor);
         break;
     }
 
     return feedback;
   }
 
-  Widget _buildMobileWidget(Color fillColor, Color textColor) => PlatformElevatedButton(
+  Widget _buildMobileWidget(BuildContext context, Color fillColor, Color textColor) => PlatformElevatedButton(
         onPressed: onAction,
         child: PlatformText(
           label,
@@ -87,7 +87,7 @@ class CrossButton extends StatelessWidget {
         ),
       );
 
-  Widget _buildMacWidget(Color fillColor, Color textColor) => PushButton(
+  Widget _buildMacWidget(BuildContext context, Color fillColor, Color textColor) => PushButton(
         color: fillColor,
         child: Text(
           label,
@@ -100,7 +100,7 @@ class CrossButton extends StatelessWidget {
         buttonSize: ButtonSize.large,
       );
 
-  Widget _buildWindowsWidget(Color fillColor, Color textColor) => fluent.FilledButton(
+  Widget _buildWindowsWidget(BuildContext context, Color fillColor, Color textColor) => fluent.FilledButton(
         child: Text(
           label,
           style: const TextStyle(
@@ -110,12 +110,16 @@ class CrossButton extends StatelessWidget {
         onPressed: onAction,
       );
 
-  Widget _buildWebWidget(Color fillColor, Color textColor) => ElevatedButton(
+  Widget _buildWebWidget(BuildContext context, Color fillColor, Color textColor) => ElevatedButton(
         child: Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontWeight: FontWeight.bold,
+            fontSize: Theme.of(context).textTheme.button?.fontSize,
           ),
+        ),
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(fillColor),
         ),
         onPressed: onAction,
       );

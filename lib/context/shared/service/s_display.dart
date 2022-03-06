@@ -49,7 +49,7 @@ class SDisplay {
     }
   }
 
-  void _showMobileDialog(BuildContext context, String title, String message) => showPlatformDialog(
+  _showMobileDialog(BuildContext context, String title, String message) => showPlatformDialog(
         context: context,
         builder: (_) => PlatformAlertDialog(
           title: Text(title),
@@ -63,7 +63,7 @@ class SDisplay {
         ),
       );
 
-  void _showMacDialog(BuildContext context, String title, String message) => showMacosAlertDialog(
+  _showMacDialog(BuildContext context, String title, String message) => showMacosAlertDialog(
         context: context,
         builder: (_) => MacosAlertDialog(
           appIcon: const FlutterLogo(

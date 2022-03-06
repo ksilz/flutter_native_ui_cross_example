@@ -15,7 +15,7 @@ class CrossHeading extends StatelessWidget {
           label,
           textAlign: TextAlign.center,
           style: TextStyle(
-            fontSize: Theme.of(context).textTheme.headline4?.fontSize,
+            fontSize: Theme.of(context).textTheme.headline5?.fontSize,
             fontWeight: FontWeight.bold,
           ),
         ),

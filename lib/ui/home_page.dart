@@ -7,6 +7,7 @@ import '../context/shared/ui/cross_app.dart';
 import '../context/shared/ui/cross_coming_soon.dart';
 import '../context/shared/ui/cross_nav_bar_item.dart';
 import '../context/shared/ui/cross_tab_scaffold.dart';
+import 'demo_page.dart';
 import 'info_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -31,9 +32,9 @@ class _HomePageState extends State<HomePage> {
             screen: const InfoPage(),
           ),
           const CrossNavBarItem(
-            label: 'Demo',
-            icon: FontAwesomeIcons.eye,
-            screen: CrossComingSoon(label: 'Demo screen'),
+            label: 'Form',
+            icon: FontAwesomeIcons.alignLeft,
+            screen: DemoPage(),
             leading: SLeadingAction.cancel,
             trailing: STrailingAction.save,
           ),

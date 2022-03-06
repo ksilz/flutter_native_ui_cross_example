@@ -72,7 +72,35 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
             ),
           ),
         ),
-        body: _calculateScreenWidget(),
+        body: _calculateLeadingAction() == SLeadingAction.cancel || _calculateTrailingAction() == STrailingAction.save
+            ? Column(
+                children: [
+                  _calculateScreenWidget(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 32, right: 32),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        if (_calculateLeadingAction() == SLeadingAction.cancel)
+                          Padding(
+                            padding: EdgeInsets.only(right: _calculateTrailingAction() == STrailingAction.save ? 16 : 0),
+                            child: CrossButton(
+                              onAction: _onCancel,
+                              type: SButtonType.cancel,
+                              label: 'Cancel',
+                            ),
+                          ),
+                        if (_calculateTrailingAction() == STrailingAction.save)
+                          CrossButton(
+                            onAction: _onSave,
+                            label: 'Save',
+                          )
+                      ],
+                    ),
+                  )
+                ],
+              )
+            : _calculateScreenWidget(),
         drawer: Container(
           color: Colors.white,
           width: 250,
@@ -84,7 +112,7 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
                     GestureDetector(
                       onTap: () => _updateIndex(index),
                       child: Container(
-                        color: index == _selectedIndex ? Colors.blue : null,
+                        color: index == _selectedIndex ? SDisplay.instance.primaryColor : null,
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           children: [
@@ -110,7 +138,7 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
         ),
       );
 
-  NavigationView _buildWindowsWidget() => NavigationView(
+  Widget _buildWindowsWidget() => NavigationView(
         appBar: NavigationAppBar(
           backgroundColor: SDisplay.instance.primaryColor,
           title: Text(
@@ -139,7 +167,7 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
         ),
       );
 
-  MacosWindow _buildMacOsWidget(BuildContext context) => MacosWindow(
+  Widget _buildMacOsWidget(BuildContext context) => MacosWindow(
         sidebar: Sidebar(
           builder: (BuildContext context, ScrollController scrollController) => SidebarItems(
             currentIndex: _selectedIndex,
@@ -158,7 +186,35 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
         child: MacosScaffold(
           children: [
             ContentArea(
-              builder: (BuildContext context, ScrollController scrollController) => _calculateScreenWidget(),
+              builder: (_, __) => _calculateLeadingAction() == SLeadingAction.cancel || _calculateTrailingAction() == STrailingAction.save
+                  ? Column(
+                      children: [
+                        _calculateScreenWidget(),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 32, right: 32),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              if (_calculateLeadingAction() == SLeadingAction.cancel)
+                                Padding(
+                                  padding: EdgeInsets.only(right: _calculateTrailingAction() == STrailingAction.save ? 16 : 0),
+                                  child: CrossButton(
+                                    onAction: _onCancel,
+                                    type: SButtonType.cancel,
+                                    label: 'Cancel',
+                                  ),
+                                ),
+                              if (_calculateTrailingAction() == STrailingAction.save)
+                                CrossButton(
+                                  onAction: _onSave,
+                                  label: 'Save',
+                                )
+                            ],
+                          ),
+                        ),
+                      ],
+                    )
+                  : _calculateScreenWidget(),
             )
           ],
           titleBar: TitleBar(
@@ -190,13 +246,9 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
           ),
           leading: _calculateLeadingAction() == SLeadingAction.cancel
               ? CrossButton(
-                  label: platform == SPlatform.android ? 'X' : 'Cancel',
+            label: platform == SPlatform.android ? 'X' : 'Cancel',
                   small: true,
-                  onAction: () => SDisplay.instance.showAlertDialog(
-                      context: context,
-                      title: 'Save Simulation',
-                      message: 'This is where the '
-                          'form would be saved.'),
+                  onAction: _onCancel,
                 )
               : null,
           trailingActions: [
@@ -204,11 +256,7 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
               CrossButton(
                 label: 'Save',
                 small: true,
-                onAction: () => SDisplay.instance.showAlertDialog(
-                    context: context,
-                    title: 'Save Simulation',
-                    message: 'This is where the '
-                        'form would be saved.'),
+                onAction: _onSave,
               )
           ],
         ),
@@ -221,6 +269,18 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
         iosContentPadding: false,
         iosContentBottomPadding: false,
       );
+
+  void _onSave() => SDisplay.instance.showAlertDialog(
+      context: context,
+      title: 'Save Simulation',
+      message: 'This is where the '
+          'form would be saved.');
+
+  void _onCancel() => SDisplay.instance.showAlertDialog(
+      context: context,
+      title: 'Cancel Simulation',
+      message: 'This is where the '
+          'form input would be canceled.');
 
   _updateIndex(int index) => setState(() => _selectedIndex = index);
 
