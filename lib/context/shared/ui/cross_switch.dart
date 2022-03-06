@@ -28,6 +28,7 @@ class _CrossSwitchState extends fluent.State<CrossSwitch> {
 
   @override
   void initState() {
+    super.initState();
     selectedValue = widget.initialValue;
   }
 
@@ -91,12 +92,13 @@ class _CrossSwitchState extends fluent.State<CrossSwitch> {
         child: Row(
           children: [
             Padding(
-              padding: const EdgeInsets.only(right: 16),
+              padding: const EdgeInsets.only(right: 8),
               child: fluent.Checkbox(
                 onChanged: (value) => _updateValue(value),
                 checked: selectedValue,
               ),
             ),
+                  Text(widget.label),
           ],
         ),
       );
