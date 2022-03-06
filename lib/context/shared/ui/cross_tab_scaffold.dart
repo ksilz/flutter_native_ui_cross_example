@@ -64,7 +64,7 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
   }
 
   Scaffold _buildWebWidget(BuildContext context) => Scaffold(
-    appBar: AppBar(
+        appBar: AppBar(
           backgroundColor: SDisplay.instance.primaryColor,
           title: Text(
             _calculateScreenTitle(),
