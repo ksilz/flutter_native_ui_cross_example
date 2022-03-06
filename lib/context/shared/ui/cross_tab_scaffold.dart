@@ -72,35 +72,7 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
             ),
           ),
         ),
-        body: _calculateLeadingAction() == SLeadingAction.cancel || _calculateTrailingAction() == STrailingAction.save
-            ? Column(
-                children: [
-                  _calculateScreenWidget(),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 32, right: 32),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        if (_calculateLeadingAction() == SLeadingAction.cancel)
-                          Padding(
-                            padding: EdgeInsets.only(right: _calculateTrailingAction() == STrailingAction.save ? 16 : 0),
-                            child: CrossButton(
-                              onAction: _onCancel,
-                              type: SButtonType.cancel,
-                              label: 'Cancel',
-                            ),
-                          ),
-                        if (_calculateTrailingAction() == STrailingAction.save)
-                          CrossButton(
-                            onAction: _onSave,
-                            label: 'Save',
-                          )
-                      ],
-                    ),
-                  )
-                ],
-              )
-            : _calculateScreenWidget(),
+        body: _calculateScreenWidget(),
         drawer: Container(
           color: Colors.white,
           width: 250,
@@ -186,35 +158,7 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
         child: MacosScaffold(
           children: [
             ContentArea(
-              builder: (_, __) => _calculateLeadingAction() == SLeadingAction.cancel || _calculateTrailingAction() == STrailingAction.save
-                  ? Column(
-                      children: [
-                        _calculateScreenWidget(),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 32, right: 32),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              if (_calculateLeadingAction() == SLeadingAction.cancel)
-                                Padding(
-                                  padding: EdgeInsets.only(right: _calculateTrailingAction() == STrailingAction.save ? 16 : 0),
-                                  child: CrossButton(
-                                    onAction: _onCancel,
-                                    type: SButtonType.cancel,
-                                    label: 'Cancel',
-                                  ),
-                                ),
-                              if (_calculateTrailingAction() == STrailingAction.save)
-                                CrossButton(
-                                  onAction: _onSave,
-                                  label: 'Save',
-                                )
-                            ],
-                          ),
-                        ),
-                      ],
-                    )
-                  : _calculateScreenWidget(),
+              builder: (_, __) => _calculateScreenWidget(),
             )
           ],
           titleBar: TitleBar(
@@ -284,7 +228,116 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
 
   _updateIndex(int index) => setState(() => _selectedIndex = index);
 
-  Widget _calculateScreenWidget() => _allPages[_selectedIndex].screen;
+  Widget _calculateScreenWidget() {
+    final screen = _allPages[_selectedIndex].screen;
+    final platform = SDevice.instance.currentPlatform;
+
+    return platform != SPlatform.android && platform != SPlatform.ios && (_calculateLeadingAction() == SLeadingAction.cancel || _calculateTrailingAction() == STrailingAction.save)
+        ? Column(
+            children: [
+              screen,
+              _calculateFormButtons(),
+            ],
+          )
+        : screen;
+  }
+
+  Widget _calculateFormButtons() {
+    final platform = SDevice.instance.currentPlatform;
+    Widget feedback;
+
+    switch (platform) {
+      case SPlatform.android:
+      case SPlatform.ios:
+        // we shouldn't arrive here
+        feedback = Container();
+        break;
+
+      case SPlatform.mac:
+        feedback = _calculateMacFormButtons();
+        break;
+
+      case SPlatform.windows:
+        feedback = _calculateWindowsFormButtons();
+        break;
+
+      case SPlatform.linux:
+      case SPlatform.web:
+        feedback = _calculateWebFormButtons();
+        break;
+    }
+
+    return feedback;
+  }
+
+  Widget _calculateMacFormButtons() => Padding(
+        padding: const EdgeInsets.only(top: 0, right: 30),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            if (_calculateLeadingAction() == SLeadingAction.cancel)
+              Padding(
+                padding: EdgeInsets.only(right: _calculateTrailingAction() == STrailingAction.save ? 16 : 0),
+                child: CrossButton(
+                  onAction: _onCancel,
+                  type: SButtonType.cancel,
+                  label: 'Cancel',
+                ),
+              ),
+            if (_calculateTrailingAction() == STrailingAction.save)
+              CrossButton(
+                onAction: _onSave,
+                label: 'Save',
+              )
+          ],
+        ),
+      );
+
+  Widget _calculateWebFormButtons() => Padding(
+        padding: const EdgeInsets.only(top: 32, right: 32),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            if (_calculateLeadingAction() == SLeadingAction.cancel)
+              Padding(
+                padding: EdgeInsets.only(right: _calculateTrailingAction() == STrailingAction.save ? 16 : 0),
+                child: CrossButton(
+                  onAction: _onCancel,
+                  type: SButtonType.cancel,
+                  label: 'Cancel',
+                ),
+              ),
+            if (_calculateTrailingAction() == STrailingAction.save)
+              CrossButton(
+                onAction: _onSave,
+                label: 'Save',
+              )
+          ],
+        ),
+      );
+
+  Widget _calculateWindowsFormButtons() => Padding(
+        padding: const EdgeInsets.only(top: 32, right: 32),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            if (_calculateLeadingAction() == SLeadingAction.cancel)
+              Padding(
+                padding: EdgeInsets.only(right: _calculateTrailingAction() == STrailingAction.save ? 16 : 0),
+                child: CrossButton(
+                  onAction: _onCancel,
+                  type: SButtonType.cancel,
+                  label: 'Cancel',
+                ),
+              ),
+            if (_calculateTrailingAction() == STrailingAction.save)
+              CrossButton(
+                onAction: _onSave,
+                label: 'Save',
+              )
+          ],
+        ),
+      );
 
   String _calculateScreenTitle() => _allPages[_selectedIndex].label;
 
