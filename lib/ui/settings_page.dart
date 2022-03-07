@@ -35,7 +35,7 @@ class SettingsPage extends StatelessWidget {
           CrossSelection(
               label: "UI style",
               children: SPlatform.values
-                  .map<SChoice>(
+                  .where((aPlatform) => aPlatform!=SPlatform.linux).map<SChoice>(
                     (aPlatform) => SChoice(
                       label: SEnumUtils.instance.translatePlatform(aPlatform),
                       action: () => _switchPlatform(aPlatform),
