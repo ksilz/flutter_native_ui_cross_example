@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_native_ui_cross_example/shared/ui/cross_drop_down.dart';
 
 import '../shared/domain/s_choice.dart';
 import '../shared/domain/s_enum_utils.dart';
 import '../shared/domain/s_enums.dart';
 import '../shared/service/s_device.dart';
 import '../shared/ui/cross_content_area.dart';
+import '../shared/ui/cross_selection.dart';
 import '../shared/ui/cross_switch.dart';
 import '../shared/ui/cross_text.dart';
 
@@ -21,8 +21,9 @@ class SettingsPage extends StatelessWidget {
     return CrossContentArea(
       children: [
         CrossText(
-          label: 'You device runs ${SEnumUtils.instance.translatePlatform(nativePlatform)}',
+          label: 'You device runs ${SEnumUtils.instance.translatePlatform(nativePlatform)} natively.',
         ),
+        const SizedBox(height: 16),
         if (SDevice.instance.isNativeMobile())
           CrossSwitch(
             label:
@@ -31,7 +32,8 @@ class SettingsPage extends StatelessWidget {
             onAction: (value) => _switchMobilePlatform(value),
           ),
         if (SDevice.instance.isNativeMobile() == false)
-          CrossDropDown(
+          CrossSelection(
+              label: "UI style",
               children: SPlatform.values
                   .map<SChoice>(
                     (aPlatform) => SChoice(

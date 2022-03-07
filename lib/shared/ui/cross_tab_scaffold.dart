@@ -169,7 +169,7 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
                 )
                 .toList(),
           ),
-          minWidth: 200,
+          minWidth: 150,
         ),
         child: MacosScaffold(
           children: [
