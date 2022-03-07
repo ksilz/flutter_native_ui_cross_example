@@ -35,7 +35,10 @@ class _CrossAppState extends State<CrossApp> {
 
   @override
   Widget build(BuildContext context) {
-    return _buildWidget(context);
+    return StreamBuilder<SDeviceEvent>(
+      stream: _deviceEvents,
+      builder: (_, __) => _buildWidget(context),
+    );
   }
 
   Widget _buildWidget(BuildContext context) {
@@ -84,15 +87,7 @@ class _CrossAppState extends State<CrossApp> {
       );
 
   Widget _buildMobileWidget() {
-    return StreamBuilder<SDeviceEvent>(
-      stream: _deviceEvents,
-      builder: (_, __) => _calculateMobileProvider(),
-    );
-  }
-
-  PlatformProvider _calculateMobileProvider() {
     final currentPlatform = SDevice.instance.currentPlatform;
-
     return PlatformProvider(
       settings: PlatformSettingsData(
         platformStyle: PlatformStyleData(
