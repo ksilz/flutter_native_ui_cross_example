@@ -97,14 +97,14 @@ class CrossForm extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 16),
               child: CrossButton(
-                onAction: () => _onCancel(context),
-                type: SButtonType.cancel,
-                label: 'Cancel',
+                onAction: () => _onSave(context),
+                label: 'Save',
               ),
             ),
             CrossButton(
-              onAction: () => _onSave(context),
-              label: 'Save',
+              onAction: () => _onCancel(context),
+              type: SButtonType.cancel,
+              label: 'Cancel',
             )
           ],
         ),
