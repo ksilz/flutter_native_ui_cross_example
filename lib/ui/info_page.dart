@@ -21,7 +21,7 @@ class InfoPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CrossButton(
-                label: 'View Talk Page',
+                label: 'View Guide',
                 onAction: () => SDevice.instance.launchWebSite(context, 'https://betterprojectsfaster.com/guide/getting-started-flutter'),
               ),
             ],
