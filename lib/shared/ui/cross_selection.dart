@@ -108,7 +108,6 @@ class _CrossSelectionState extends State<CrossSelection> {
                       checked: _currentValue == widget.children[index].label,
                     ),
                   ),
-                  Text(widget.children[index].label),
                 ],
               ),
             ),
