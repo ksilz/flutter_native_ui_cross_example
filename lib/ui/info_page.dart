@@ -15,14 +15,14 @@ class InfoPage extends StatelessWidget {
         children: [
           const CrossHeading(label: 'Welcome to This Flutter Native UI Example!'),
           const CrossText(
-            label: 'This project belongs to a conference talk from JavaLand 2021 \'Flutter for Java Developers: Web, Mobile & Desktop Front-Ends from 1 Code Base?\'.',
+            label: 'This project belongs to the "Getting Started With Flutter" guide from the "Better Projects Faster" site.',
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               CrossButton(
                 label: 'View Talk Page',
-                onAction: () => SDevice.instance.launchWebSite(context, 'https://bpf.li/hum'),
+                onAction: () => SDevice.instance.launchWebSite(context, 'https://betterprojectsfaster.com/guide/getting-started-flutter/#sample-application-native-look--feel-with-flutter'),
               ),
             ],
           ),
