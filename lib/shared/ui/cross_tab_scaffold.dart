@@ -1,6 +1,4 @@
 import 'package:fluent_ui/fluent_ui.dart' hide Colors;
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:macos_ui/macos_ui.dart';
@@ -171,24 +169,25 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
           ),
           minWidth: 150,
         ),
+        titleBar: TitleBar(
+          height: Theme.of(context).textTheme.headline5?.fontSize != null ? Theme.of(context).textTheme.headline5!.fontSize! * 2 : 50,
+          decoration: BoxDecoration(
+            color: SDisplay.instance.primaryColor,
+          ),
+          title: Text(
+            _calculateScreenTitle(),
+            style: TextStyle(
+              fontSize: Theme.of(context).textTheme.headline5?.fontSize,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
         child: MacosScaffold(
           children: [
             ContentArea(
               builder: (_, __) => _calculateCurrentScreen(),
             )
           ],
-          titleBar: TitleBar(
-            decoration: BoxDecoration(
-              color: SDisplay.instance.primaryColor,
-            ),
-            title: Text(
-              _calculateScreenTitle(),
-              style: TextStyle(
-                fontSize: Theme.of(context).textTheme.headline5?.fontSize,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
         ),
       );
 
