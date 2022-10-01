@@ -99,7 +99,7 @@ class CrossButton extends StatelessWidget {
       );
 
   Widget _buildWindowsWidget(BuildContext context, Color fillColor, Color textColor) => fluent.FilledButton(
-    style: fluent.ButtonStyle(
+        style: fluent.ButtonStyle(
           backgroundColor: fluent.ButtonState.all<Color>(fillColor),
         ),
         onPressed: onAction,
