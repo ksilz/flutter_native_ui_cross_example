@@ -72,6 +72,10 @@ class CrossButton extends StatelessWidget {
 
   Widget _buildMobileWidget(BuildContext context, Color fillColor, Color textColor) => PlatformElevatedButton(
         onPressed: onAction,
+        color: fillColor,
+        cupertino: (_, __) => CupertinoElevatedButtonData(
+          padding: small ? const EdgeInsets.only(left: 16, right: 16) : null,
+        ),
         child: PlatformText(
           label,
           style: TextStyle(
@@ -79,14 +83,12 @@ class CrossButton extends StatelessWidget {
             color: textColor,
           ),
         ),
-        color: fillColor,
-        cupertino: (_, __) => CupertinoElevatedButtonData(
-          padding: small ? const EdgeInsets.only(left: 16, right: 16) : null,
-        ),
       );
 
   Widget _buildMacWidget(BuildContext context, Color fillColor, Color textColor) => PushButton(
-        color: fillColor,
+    color: fillColor,
+        onPressed: onAction,
+        buttonSize: ButtonSize.large,
         child: Text(
           label,
           style: TextStyle(
@@ -94,24 +96,26 @@ class CrossButton extends StatelessWidget {
             color: textColor,
           ),
         ),
-        onPressed: onAction,
-        buttonSize: ButtonSize.large,
       );
 
   Widget _buildWindowsWidget(BuildContext context, Color fillColor, Color textColor) => fluent.FilledButton(
-        style: fluent.ButtonStyle(
+    style: fluent.ButtonStyle(
           backgroundColor: fluent.ButtonState.all<Color>(fillColor),
         ),
+        onPressed: onAction,
         child: Text(
           label,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
-        onPressed: onAction,
       );
 
   Widget _buildWebWidget(BuildContext context, Color fillColor, Color textColor) => ElevatedButton(
+    style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(fillColor),
+        ),
+        onPressed: onAction,
         child: Text(
           label,
           style: TextStyle(
@@ -119,9 +123,5 @@ class CrossButton extends StatelessWidget {
             fontSize: Theme.of(context).textTheme.button?.fontSize,
           ),
         ),
-        style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(fillColor),
-        ),
-        onPressed: onAction,
       );
 }

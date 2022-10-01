@@ -110,43 +110,44 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
         ),
       );
 
-  Widget _buildWindowsWidget() => NavigationView(
-        appBar: NavigationAppBar(
-          backgroundColor: SDisplay.instance.primaryColor,
-          title: Text(
-            _calculateScreenTitle(),
-            style: TextStyle(
-              fontSize: Theme.of(context).textTheme.headline6?.fontSize,
-              fontWeight: FontWeight.bold,
-            ),
+  Widget _buildWindowsWidget() {
+    var screenIndex = 0;
+
+    return NavigationView(
+      appBar: NavigationAppBar(
+        backgroundColor: SDisplay.instance.primaryColor,
+        title: Text(
+          _calculateScreenTitle(),
+          style: TextStyle(
+            fontSize: Theme.of(context).textTheme.headline6?.fontSize,
+            fontWeight: FontWeight.bold,
           ),
         ),
-        pane: NavigationPane(
-          selected: _selectedIndex,
-          onChanged: (index) => _updateIndex(index),
-          size: const NavigationPaneSize(
-            openMinWidth: 120,
-            openMaxWidth: 130,
-          ),
-          items: _allPages
-              .map<NavigationPaneItem>(
-                (anItem) => PaneItem(
-                  icon: Icon(anItem.icon),
-                  title: Text(
-                    anItem.label,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.normal,
-                    ),
+      ),
+      pane: NavigationPane(
+        selected: _selectedIndex,
+        onChanged: (index) => _updateIndex(index),
+        size: const NavigationPaneSize(
+          openMinWidth: 120,
+          openMaxWidth: 130,
+        ),
+        items: _allPages
+            .map<NavigationPaneItem>(
+              (anItem) => PaneItem(
+                icon: Icon(anItem.icon),
+                title: Text(
+                  anItem.label,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.normal,
                   ),
                 ),
-              )
-              .toList(),
-        ),
-        content: NavigationBody(
-          index: _selectedIndex,
-          children: _screens,
-        ),
-      );
+                body: _screens[screenIndex++],
+              ),
+            )
+            .toList(),
+      ),
+    );
+  }
 
   Widget _buildMacOsWidget(BuildContext context) => MacosWindow(
         sidebar: Sidebar(

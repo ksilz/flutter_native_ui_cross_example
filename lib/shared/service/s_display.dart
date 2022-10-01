@@ -11,7 +11,7 @@ class SDisplay {
   static const Color _iosBackgroundGray = Color.fromARGB(255, 243, 243, 243);
   static const Color _niceBlue = Color(0xFF66A3FF);
 
-  SDisplay._privateConstructor() {}
+  SDisplay._privateConstructor();
 
   Color get contentAreaBackgroundColor {
     final platform = SDevice.instance.currentPlatform;
