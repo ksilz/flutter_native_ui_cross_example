@@ -86,7 +86,7 @@ class CrossButton extends StatelessWidget {
       );
 
   Widget _buildMacWidget(BuildContext context, Color fillColor, Color textColor) => PushButton(
-    color: fillColor,
+        color: fillColor,
         onPressed: onAction,
         buttonSize: ButtonSize.large,
         child: Text(
