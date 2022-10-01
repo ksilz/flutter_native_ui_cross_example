@@ -112,7 +112,7 @@ class CrossButton extends StatelessWidget {
       );
 
   Widget _buildWebWidget(BuildContext context, Color fillColor, Color textColor) => ElevatedButton(
-    style: ButtonStyle(
+        style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(fillColor),
         ),
         onPressed: onAction,
