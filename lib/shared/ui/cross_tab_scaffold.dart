@@ -1,6 +1,4 @@
 import 'package:fluent_ui/fluent_ui.dart' hide Colors;
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:macos_ui/macos_ui.dart';
@@ -112,43 +110,44 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
         ),
       );
 
-  Widget _buildWindowsWidget() => NavigationView(
-        appBar: NavigationAppBar(
-          backgroundColor: SDisplay.instance.primaryColor,
-          title: Text(
-            _calculateScreenTitle(),
-            style: TextStyle(
-              fontSize: Theme.of(context).textTheme.headline6?.fontSize,
-              fontWeight: FontWeight.bold,
-            ),
+  Widget _buildWindowsWidget() {
+    var screenIndex = 0;
+
+    return NavigationView(
+      appBar: NavigationAppBar(
+        backgroundColor: SDisplay.instance.primaryColor,
+        title: Text(
+          _calculateScreenTitle(),
+          style: TextStyle(
+            fontSize: Theme.of(context).textTheme.headline6?.fontSize,
+            fontWeight: FontWeight.bold,
           ),
         ),
-        pane: NavigationPane(
-          selected: _selectedIndex,
-          onChanged: (index) => _updateIndex(index),
-          size: const NavigationPaneSize(
-            openMinWidth: 120,
-            openMaxWidth: 130,
-          ),
-          items: _allPages
-              .map<NavigationPaneItem>(
-                (anItem) => PaneItem(
-                  icon: Icon(anItem.icon),
-                  title: Text(
-                    anItem.label,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.normal,
-                    ),
+      ),
+      pane: NavigationPane(
+        selected: _selectedIndex,
+        onChanged: (index) => _updateIndex(index),
+        size: const NavigationPaneSize(
+          openMinWidth: 120,
+          openMaxWidth: 130,
+        ),
+        items: _allPages
+            .map<NavigationPaneItem>(
+              (anItem) => PaneItem(
+                icon: Icon(anItem.icon),
+                title: Text(
+                  anItem.label,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.normal,
                   ),
                 ),
-              )
-              .toList(),
-        ),
-        content: NavigationBody(
-          index: _selectedIndex,
-          children: _screens,
-        ),
-      );
+                body: _screens[screenIndex++],
+              ),
+            )
+            .toList(),
+      ),
+    );
+  }
 
   Widget _buildMacOsWidget(BuildContext context) => MacosWindow(
         sidebar: Sidebar(
@@ -171,24 +170,25 @@ class _CrossTabScaffoldState extends State<CrossTabScaffold> {
           ),
           minWidth: 150,
         ),
+        titleBar: TitleBar(
+          height: Theme.of(context).textTheme.headline5?.fontSize != null ? Theme.of(context).textTheme.headline5!.fontSize! * 2 : 50,
+          decoration: BoxDecoration(
+            color: SDisplay.instance.primaryColor,
+          ),
+          title: Text(
+            _calculateScreenTitle(),
+            style: TextStyle(
+              fontSize: Theme.of(context).textTheme.headline5?.fontSize,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
         child: MacosScaffold(
           children: [
             ContentArea(
               builder: (_, __) => _calculateCurrentScreen(),
             )
           ],
-          titleBar: TitleBar(
-            decoration: BoxDecoration(
-              color: SDisplay.instance.primaryColor,
-            ),
-            title: Text(
-              _calculateScreenTitle(),
-              style: TextStyle(
-                fontSize: Theme.of(context).textTheme.headline5?.fontSize,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
         ),
       );
 

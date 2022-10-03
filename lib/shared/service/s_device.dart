@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 import '../../../shared/domain/s_enums.dart';
 import '../domain/s_device_event.dart';
@@ -38,7 +39,7 @@ class SDevice {
     }
 
     _currentPlatform = _nativePlatform;
-    _webSitesPossible = await canLaunch(Uri(scheme: 'https', path: 'google.com').toString());
+    _webSitesPossible = await canLaunchUrl(Uri(scheme: 'https', path: 'google.com'));
   }
 
   bool get webSitesPossible => _webSitesPossible;
@@ -58,7 +59,7 @@ class SDevice {
 
   launchWebSite(BuildContext context, String url) async {
     if (webSitesPossible) {
-      final worked = await launch(url);
+      final worked = await launchUrlString(url);
 
       if (worked == false) {
         SDisplay.instance.showAlertDialog(context: context, title: "Can't launch web site", message: "I couldn't show this web. Please open it manually: $url");
