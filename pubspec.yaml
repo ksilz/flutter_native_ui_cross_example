@@ -15,7 +15,7 @@ dependencies:
   cupertino_icons: 1.0.5
   flutter_platform_widgets: 2.0.0
   macos_ui: 1.7.5
-  fluent_ui: 4.0.3
+  fluent_ui: 4.0.3+1
   font_awesome_flutter: 10.2.1
   window_manager: 0.2.7
   url_launcher: 6.1.6
