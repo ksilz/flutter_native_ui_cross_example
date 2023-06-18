@@ -65,10 +65,12 @@ class CrossTextField extends StatelessWidget {
         placeholder: label,
       );
 
-  Widget _buildWindowsWidget() => TextBox(
-        header: label,
-        placeholder: hint,
-        keyboardType: TextInputType.text,
+  Widget _buildWindowsWidget() => InfoLabel(
+        label: label,
+        child: TextBox(
+          placeholder: hint,
+          keyboardType: TextInputType.text,
+        ),
       );
 
   Widget _buildWebWidget(BuildContext context) => TextFormField(
